@@ -1,0 +1,35 @@
+.cart {
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 300px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+    background-color: cornflowerblue;
+  }
+  
+  .item {
+    margin-bottom: 10px;
+  }
+  
+  .controls button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .like {
+    background-color: transparent;
+    border: none;
+    color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+  }
+  .delete {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+    background-color: lightcoral;
+  }
+  
+  .like.liked {
+    color: red;
+  }

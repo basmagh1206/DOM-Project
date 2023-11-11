@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Project</title>
+    <link rel="stylesheet" type="text/css" href="DOMProject.css">
+</head>
+<body>
+    <div class="cart">
+        <div class="item">
+            <span class="item-name">Mouse</span>
+            <div class="controls">
+                <button class="quantity-decrease">-</button>
+                <span class="quantity">1</span>
+                <button class="quantity-increase">+</button>
+                <button class="delete">Delete</button>
+                <button class="like">Like</button>
+            </div>
+            <span class="item-price">249 dhs</span>
+        </div>
+        <div class="item">
+            <span class="item-name">Keyboard</span>
+            <div class="controls">
+                <button class="quantity-decrease">-</button>
+                <span class="quantity">1</span>
+                <button class="quantity-increase">+</button>
+                <button class="delete">Delete</button>
+                <button class="like">Like</button>
+            </div>
+            <span class="item-price">329 dhs</span>
+        </div>
+        <div class="item">
+            <span class="item-name">Laptop</span>
+            <div class="controls">
+                <button class="quantity-decrease">-</button>
+                <span class="quantity">1</span>
+                <button class="quantity-increase">+</button>
+                <button class="delete">Delete</button>
+                <button class="like">Like</button>
+            </div>
+            <span class="item-price">3059 dhs</span>
+        </div>
+        <div class="item">
+            <span class="item-name">Laptop 2</span>
+            <div class="controls">
+                <button class="quantity-decrease">-</button>
+                <span class="quantity">1</span>
+                <button class="quantity-increase">+</button>
+                <button class="delete">Delete</button>
+                <button class="like">Like</button>
+            </div>
+            <span class="item-price">5059 dhs</span>
+        </div>
+        <div class="total">
+            Total: <span class="total-price">0 dhs</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cart = document.querySelector(".cart");
+            const totalPriceElement = cart.querySelector(".total-price");
+
+            cart.addEventListener("click", function(event) {
+                const clickedElement = event.target;
+                const cartItem = clickedElement.closest(".item");
+
+                if (!cartItem) return;
+
+                handleQuantity(clickedElement, cartItem);
+                handleDelete(cartItem);
+                handleLike(clickedElement);
+                updateTotalPrice(cart);
+            });
+
+            function handleQuantity(clickedElement, cartItem) {
+                const quantityElement = cartItem.querySelector(".quantity");
+                const isIncrease = clickedElement.classList.contains("quantity-increase");
+
+                if (isIncrease) {
+                    quantityElement.textContent = +quantityElement.textContent + 1;
+                } else {
+                    if (+quantityElement.textContent > 1) {
+                        quantityElement.textContent = +quantityElement.textContent - 1;
+                    }
+                }
+            }
+
+            function handleDelete(cartItem) {
+                if (event.target.classList.contains("delete")) {
+                    cartItem.remove();
+                }
+            }
+
+            function handleLike(clickedElement) {
+                if (event.target.classList.contains("like")) {
+                    clickedElement.classList.toggle("liked");
+                }
+            }
+
+            function updateTotalPrice(cart) {
+                let total = 0;
+                const allItems = cart.querySelectorAll(".item");
+
+                allItems.forEach(cartItem => {
+                    const itemPrice = +cartItem.querySelector(".item-price").textContent.replace(/[^0-9.-]+/g, "");
+                    const itemQuantity = +cartItem.querySelector(".quantity").textContent;
+                    total += itemPrice * itemQuantity;
+                });
+
+                totalPriceElement.textContent = `${total} dhs`;
+            }
+        });
+    </script>
+</body>
+</html>
